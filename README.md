@@ -4,7 +4,7 @@ A Retrieval-Augmented Generation (RAG) application that allows users to upload P
 
 ## Features
 
-* **Document Ingestion:** Upload multiple PDF files or input raw text directly.
+* **Document Ingestion:** Upload multiple PDF or text files
 * **Smart Chunking:** Splits large documents into semantic chunks using `RecursiveCharacterTextSplitter`.
 * **Vector Search:** Uses `sentence-transformers` for embeddings and `FAISS` for high-performance similarity search.
 * **AI-Powered Answers:** Synthesizes factual answers using the **DeepSeek-R1-Distill-Llama-8B** LLM.
@@ -63,7 +63,7 @@ A Retrieval-Augmented Generation (RAG) application that allows users to upload P
 .
 ├── app.py                  # Main RAG pipeline logic (Model & Prompting)
 ├── chunking.py             # Text splitting logic
-├── document_loader.py      # PDF/TXT text extraction
+├── document_loader.py      # PDF text extraction
 ├── embeddings.py           # Vector embedding generation & FAISS storage
 ├── frontend.py             # Streamlit UI
 ├── retriever.py            # Search logic (MMR Retrieval)
