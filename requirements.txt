@@ -1,0 +1,22 @@
+# LangChain
+langchain
+langchain-core
+langchain-community
+
+# Hugging Face integration
+langchain-huggingface
+
+# Environment variables management
+python-dotenv
+
+# PDF
+pypdf
+
+# Sentence Transformer
+sentence_transformers
+
+# 
+faiss-cpu
+
+# frontend
+streamlit
