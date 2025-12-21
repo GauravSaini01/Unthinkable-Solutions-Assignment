@@ -1,5 +1,12 @@
+venv/
+
 .env
 
-faiss_index
+faiss_index/
 
-venv
+__pycache__/
+*.pyc
+
+.DS_Store
+
+.vscode/
