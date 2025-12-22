@@ -71,3 +71,10 @@ A Retrieval-Augmented Generation (RAG) application that allows users to upload P
 ├── prompt_template.json    # Prompt structure for the LLM
 ├── requirements.txt        # Project dependencies
 └── README.md               # Documentation
+
+```
+
+## Demo Video
+
+https://github.com/user-attachments/assets/b1c0db03-a6ea-46bc-a80a-5240c5dabdc1
+
