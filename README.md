@@ -1,6 +1,11 @@
 # Knowledge-Base Search Engine (RAG)
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://knowledge-base-search-engine.streamlit.app/)
+
 A Retrieval-Augmented Generation (RAG) application that allows users to upload PDF and text documents and ask questions based on their content. The system uses a hybrid retrieval approach with **FAISS** for vector search and **DeepSeek-R1-Distill** (via Hugging Face) for intelligent answer synthesis.
+
+## Live Demo
+**Try the app here:** [https://knowledge-base-search-engine.streamlit.app/](https://knowledge-base-search-engine.streamlit.app/)
 
 ## Features
 
