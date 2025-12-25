@@ -1,5 +1,5 @@
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from typing import List
 from langchain_core.documents import Document
 
