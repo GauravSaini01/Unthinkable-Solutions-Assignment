@@ -7,24 +7,22 @@ embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
-def generate_document_embeddings_and_store(documents: List[Document]) -> None:
+def generate_document_embeddings(documents: List[Document]): 
     """
-    Generates vector embeddings for a list of Documents and persists them in a local FAISS index.
-
-    This function converts text chunks into dense vector representations using the 
-    pre-initialized HuggingFace model and saves the index to disk ('faiss_index').
+    Generates a FAISS vector store in memory from a list of Documents.
 
     Args:
         documents (List[Document]): A list of LangChain Document objects to be indexed.
 
     Returns:
-        None: The function saves the index to the local filesystem as a side effect.
+        FAISS: The vector store object containing the embeddings. 
+               Returns None if the document list is empty.
     """
     
     if not documents:
         print("No documents to index.")
-        return
+        return None
 
     vector_store = FAISS.from_documents(documents, embeddings)
 
-    vector_store.save_local("faiss_index")
+    return vector_store

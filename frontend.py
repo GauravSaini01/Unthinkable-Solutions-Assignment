@@ -2,7 +2,10 @@ import streamlit as st
 from document_loader import read_files
 from app import process_context_text, answer_query
 
-st.set_page_config(page_title="Unthinkable")
+st.set_page_config(page_title="RAG")
+
+if "vector_store" not in st.session_state:
+    st.session_state.vector_store = None
 
 with st.sidebar:
     st.header("📂 Knowledge Base")
@@ -16,7 +19,9 @@ with st.sidebar:
         if st.button("Process Documents", type="primary"):
             with st.status("Reading and storing...", expanded=True) as status:
                 pdf_text = read_files(uploaded_files)
-                process_context_text(pdf_text)
+                
+                st.session_state.vector_store = process_context_text(pdf_text)
+                
                 status.update(label="Knowledge Base Updated!", state="complete", expanded=False)
 
 
@@ -35,12 +40,17 @@ if query := st.chat_input("Ask a question about your documents..."):
     with st.chat_message("user"):
         st.markdown(query)
 
-    with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
-            try:
-                response = answer_query(query)
-                st.markdown(response)
-                
-                st.session_state.messages.append({"role": "assistant", "content": response})
-            except Exception as e:
-                st.error(f"An error occurred: {e}")
+    if st.session_state.vector_store is None:
+        with st.chat_message("assistant"):
+            st.warning("Please upload and process documents from the sidebar first.")
+            st.session_state.messages.append({"role": "assistant", "content": "Please upload documents first."})
+    else:
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                try:
+                    response = answer_query(query, st.session_state.vector_store)
+                    st.markdown(response)
+                    
+                    st.session_state.messages.append({"role": "assistant", "content": response})
+                except Exception as e:
+                    st.error(f"An error occurred: {e}")

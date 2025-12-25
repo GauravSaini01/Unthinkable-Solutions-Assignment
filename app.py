@@ -1,5 +1,5 @@
 from langchain_core.prompts import load_prompt
-from embeddings import generate_document_embeddings_and_store
+from embeddings import generate_document_embeddings 
 from chunking import text_chunker
 from retriever import retrieve_similar_docs
 from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
@@ -19,36 +19,27 @@ llm = HuggingFaceEndpoint(
 
 model = ChatHuggingFace(llm=llm)
 
-def process_context_text(input_text: str) -> None:
+def process_context_text(input_text: str):
     """
     Orchestrates the document ingestion pipeline.
     
-    This function takes raw text, breaks it into semantically meaningful chunks, 
-    and then generates vector embeddings to store in the FAISS index.
-
-    Args:
-        input_text (str): The complete text extracted from PDFs or user input.
+    Returns:
+        FAISS: The in-memory vector store object.
     """
     chunked_documents = text_chunker(input_text)
     
-    generate_document_embeddings_and_store(chunked_documents)
+    return generate_document_embeddings(chunked_documents)
 
 
-def answer_query(query: str) -> str:
+def answer_query(query: str, vector_store) -> str:
     """
-    Executes the RAG (Retrieval-Augmented Generation) workflow.
-
-    1. Retrieves relevant context from the vector store based on the query.
-    2. Formats a prompt combining the context and the user's question.
-    3. Generates a synthesized answer using the LLM.
+    Executes the RAG workflow using the specific user's vector_store.
 
     Args:
-        query (str): The user's natural language question.
-
-    Returns:
-        str: The generated answer from the AI model.
+        query (str): The user's question.
+        vector_store: The in-memory FAISS index from st.session_state.
     """
-    docs = retrieve_similar_docs(query)
+    docs = retrieve_similar_docs(query, vector_store)
 
     context = "\n\n".join(
         f"Source {i+1}:\n{doc.page_content}" for i, doc in enumerate(docs)
