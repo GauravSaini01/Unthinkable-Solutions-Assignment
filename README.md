@@ -83,3 +83,6 @@ A Retrieval-Augmented Generation (RAG) application that allows users to upload P
 
 https://github.com/user-attachments/assets/b1c0db03-a6ea-46bc-a80a-5240c5dabdc1
 
+
+## 
+Author : GauravSaini01
